@@ -91,7 +91,6 @@ public class PhoneBook {
 		
 		//go to the beginning
 		Menu();
-
 	}
 	
 	private String InputString(){
