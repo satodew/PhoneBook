@@ -1,45 +1,113 @@
 package org.phonebook;
 
 import java.util.Scanner;
+import java.sql.SQLException;
 
 public class PhoneBook {
-	private Scanner scan;
 	
-	public static void main(String[] args) {
+	private Scanner scan;
+	private DB db;
+	
+	public static void main(String[] args) throws SQLException{
 		PhoneBook main = new PhoneBook();
-		
-		//PhoneBook phoneBook = new PhoneBook();
-		//phoneBook.Start();
 	}
 
-	public PhoneBook(){
-		System.out.println("Hello");
+	public PhoneBook() throws SQLException{
+		
 		scan = new Scanner(System.in);
 		
-		System.out.println("Телефонный справочник v0.01");
-		System.out.println("Поиск записи: введите 1");
-		System.out.println("Добавить запись: введите 2");
-		System.out.println("Вывести все записи: введите 3");
+		db = new DB();
+		db.Start();
+		db.CreateTable();
+		db.Close();
+		
+		System.out.println("PhoneBook v0.01\n");
+		Menu();
+		
+	}
+	
+	
+	//displaying a list with a choice of actions
+	private void Menu() throws SQLException{
+		
+		System.out.println("1 Search");
+		System.out.println("2 Add");
+		System.out.println("3 Show all");
+		System.out.println("4 Exit");
+		
+		//running methods depending on user selection
 		SelectMenuItem();
 	}
 	
-	private void SelectMenuItem(){
+	private void SelectMenuItem() throws SQLException{
 		String read = scan.nextLine();
 		
-		switch(read){
-		case "1":
-			System.out.println("один");
-			break;
-		case "2":
-			System.out.println("два");
-			break;
-		case "3":
-			System.out.println("два");
-			break;
-		default:
-			System.out.println("Ошибка! Попробуйте еще раз.");
+		if(read.equals("1")){
+			//search
+			Search();
+		}else if(read.equals("2")){
+			//add
+			AddContact();
+		}else if(read.equals("3")){
+			//show all
+			ReadFull();
+			
+		}else if(read.equals("4")){
+			//exit
+			return;
+			
+		}else{
+			System.out.println("Error!");
 			SelectMenuItem();
-			break;
+		}
 	}
+	
+	private void Search() throws SQLException{
+		System.out.println("Name:");
+		String text = InputString();
+		db.Start();
+		String res = db.Search(text);
+		db.Close();
+		System.out.println(res);
+		
+		//go to the beginning
+		Menu();
+	}
+	
+	private void ReadFull() throws SQLException{
+		db.Start();
+		String res = db.ReadFull();
+		db.Close();
+		System.out.println(res);
+		
+		//go to the beginning
+		Menu();
+	}
+	
+	private void AddContact() throws SQLException{
+		System.out.println("Name:");
+		String name = "";
+		name = InputString();
+		System.out.println("Phone:");
+		String phone = InputString();
+		db.Start();
+		db.Write(name, phone);
+		db.Close();
+		System.out.println("Added!\n");
+		
+		//go to the beginning
+		Menu();
+
+	}
+	
+	private String InputString(){
+		String read = "";
+		
+		while(read.equals("")){
+			read = scan.nextLine();
+			if(read.equals(""))
+				System.out.println("Error! Try again.");
+		}
+		return read;
 	}
 }
