@@ -13,7 +13,6 @@ public class PhoneBook {
 	}
 
 	public PhoneBook() throws SQLException{
-		
 		scan = new Scanner(System.in);
 		
 		db = new DB();
@@ -23,13 +22,11 @@ public class PhoneBook {
 		
 		System.out.println("PhoneBook v0.01\n");
 		Menu();
-		
 	}
 	
 	
 	//displaying a list with a choice of actions
 	private void Menu() throws SQLException{
-		
 		System.out.println("1 Search");
 		System.out.println("2 Add");
 		System.out.println("3 Show all");
@@ -41,7 +38,6 @@ public class PhoneBook {
 	
 	private void SelectMenuItem() throws SQLException{
 		String read = scan.nextLine();
-		
 		if(read.equals("1")){
 			//search
 			Search();
@@ -51,11 +47,9 @@ public class PhoneBook {
 		}else if(read.equals("3")){
 			//show all
 			ReadFull();
-			
 		}else if(read.equals("4")){
 			//exit
 			return;
-			
 		}else{
 			System.out.println("Error!");
 			SelectMenuItem();
@@ -102,7 +96,6 @@ public class PhoneBook {
 	
 	private String InputString(){
 		String read = "";
-		
 		while(read.equals("")){
 			read = scan.nextLine();
 			if(read.equals(""))

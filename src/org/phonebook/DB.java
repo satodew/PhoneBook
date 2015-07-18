@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 
-
 public class DB {
 	
 	private Connection connection;
@@ -31,7 +30,6 @@ public class DB {
 					"'name' text, " +
 					"'phone' text)"
 				);
-
 	}
 	
 	public void Write(String name, String phone) throws SQLException{
@@ -57,7 +55,6 @@ public class DB {
 		while(resultSet.next()){
 			sb.append(resultSet.getString("name")).append(" ").append(resultSet.getString("phone")).append("\n");
 		}
-
 		return sb.toString();
 	}
 	
