@@ -16,7 +16,7 @@ public class DB {
 		try{
 			connection = null;
 			Class.forName("org.sqlite.JDBC");
-			connection = DriverManager.getConnection("jdbc:sqlite:db/BASE.s3db");
+			connection = DriverManager.getConnection("jdbc:sqlite:BASE.s3db");
 		}catch(ClassNotFoundException e){}
 	}
 	
